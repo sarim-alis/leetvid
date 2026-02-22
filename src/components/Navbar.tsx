@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ModeToggle } from "./ModeToggle";
 import { CodeIcon } from "lucide-react";
-import { SignedIn, UserButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import DasboardBtn from "./DasboardBtn";
 
 function Navbar() {
@@ -20,13 +20,16 @@ function Navbar() {
         </Link>
 
         {/* RIGHT SIDE - ACTIONS */}
-        <SignedIn>
-          <div className="flex items-center space-x-4 ml-auto">
+        <div className="flex items-center space-x-4 ml-auto">
+          <SignedIn>
             <DasboardBtn />
             <ModeToggle />
             <UserButton />
-          </div>
-        </SignedIn>
+          </SignedIn>
+          <SignedOut>
+            <SignInButton />
+          </SignedOut>
+        </div>
       </div>
     </nav>
   );
