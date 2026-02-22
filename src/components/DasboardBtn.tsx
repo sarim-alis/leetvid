@@ -3,16 +3,16 @@
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { SparklesIcon } from "lucide-react";
+import { useUserRole } from "@/hooks/useUserRole";
 
 function DasboardBtn() {
-    const isCandidate = false;
-    const isInterviewer = true;
+    const { isCandidate, isLoading } = useUserRole();
 
-    if (isCandidate) return null;
+    if (isCandidate || isLoading) return null;
 
     return ( 
     <Link href={"/dashboard"}>
-        <Button className="gap-2 font-medium" size={"sm"}>
+        <Button className="gap-2 font-medium bg-emerald-600 hover:bg-emerald-700 text-white" size={"sm"}>
             <SparklesIcon className="size-4" />
             Dashboard
         </Button>
