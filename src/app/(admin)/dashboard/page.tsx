@@ -1,4 +1,4 @@
 function DashboardPage() {
-  return <div>DashboardPages</div>;  
+  return <div>DashboardPage</div>;  
 }
 export default DashboardPage;
