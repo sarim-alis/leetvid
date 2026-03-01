@@ -7,12 +7,13 @@ import { ResizablePanel, ResizablePanelGroup } from "./ui/resizable";
 function MeetingRoom() {
     const router = useRouter();
     const [layout, setLayout] = useState<"grid" |"speaker">('speaker');
-    const { showParticipants, setShowParticipants } = useState(false);
+    // const { showParticipants, setShowParticipants } = useState(false);
+
     const { useCallCallingState } = useCallStateHooks();
 
     const callingState = useCallCallingState();
 
-    if (callingState === CallingState.JOINED) {
+    if (callingState !== CallingState.JOINED) {
         return (
             <div className="h-96 flex items-center justify-center">
                 <LoaderIcon className="size-8 animate-spin" />
@@ -21,7 +22,7 @@ function MeetingRoom() {
     }
 
     return (
-    <ResizablePanelGroup direction="horizontal">
+    <ResizablePanelGroup>
         <ResizablePanel defaultSize={35} minSize={25} maxSize={100} className="relative">
             <h1>Video will go here</h1>
         </ResizablePanel>
