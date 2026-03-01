@@ -31,6 +31,10 @@ const config: Config = {
     "text-blue-500",
     "bg-orange-500/10",
     "text-orange-500",
+    // Switch colors
+    "data-[state=checked]:bg-emerald-600",
+    "bg-emerald-600",
+    "hover:bg-emerald-700",
     // bg-clip-text for text gradients
     "bg-clip-text",
     "text-transparent",

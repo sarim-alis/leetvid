@@ -6,7 +6,7 @@ import { Switch } from "./ui/switch";
 import { Button } from "./ui/button";
 
 function MeetingSetup({ onSetupComplete }: { onSetupComplete: () => void }) {
-  const [isCameraDisabled, setIsCameraDisabled] = useState(true);
+  const [isCameraDisabled, setIsCameraDisabled] = useState(false);
   const [isMicDisabled, setIsMicDisabled] = useState(false);
 
   const call = useCall();
@@ -40,7 +40,7 @@ function MeetingSetup({ onSetupComplete }: { onSetupComplete: () => void }) {
             </div>
 
             {/* Video Preview */}
-            <div className="mt-4 flex-1 min-h-[400px] rounded-xl overflow-hidden bg-muted/50 border relative">
+            <div className="mt-4 flex-1 min-h-[300px] rounded-xl overflow-hidden bg-muted/50 border relative">
               <div className="absolute inset-0">
                 <VideoPreview className="h-full w-full" />
               </div>
@@ -58,12 +58,12 @@ function MeetingSetup({ onSetupComplete }: { onSetupComplete: () => void }) {
               </div>
 
               <div className="flex-1 flex flex-col justify-between">
-                <div className="spacey-6 mt-8">
+                <div className="space-y-4 mt-4">
                   {/* Cam Control */}
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
-                        <CameraIcon className="h-5 w-5 text-primary" />
+                      <div className="h-10 w-10 rounded-full bg-emerald-600/10 flex items-center justify-center">
+                        <CameraIcon className="h-5 w-5 text-emerald-600" />
                       </div>
                       <div>
                         <p className="font-medium">Camera</p>
@@ -81,8 +81,8 @@ function MeetingSetup({ onSetupComplete }: { onSetupComplete: () => void }) {
                   {/* Mic Control */}
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
-                        <MicIcon className="h-5 w-5 text-primary" />
+                      <div className="h-10 w-10 rounded-full bg-emerald-600/10 flex items-center justify-center">
+                        <MicIcon className="h-5 w-5 text-emerald-600" />
                       </div>
                       <div>
                         <p className="font-medium">Microphone</p>
@@ -100,8 +100,8 @@ function MeetingSetup({ onSetupComplete }: { onSetupComplete: () => void }) {
                   {/* Device Settings */}
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
-                        <SettingsIcon className="h-5 w-5 text-primary" />
+                      <div className="h-10 w-10 rounded-full bg-emerald-600/10 flex items-center justify-center">
+                        <SettingsIcon className="h-5 w-5 text-emerald-600" />
                       </div>
                       <div>
                         <p className="font-medium">Settings</p>
@@ -113,8 +113,8 @@ function MeetingSetup({ onSetupComplete }: { onSetupComplete: () => void }) {
                 </div>
 
                 {/* Join Btn */}
-                <div className="space-y-3 mt-8">
-                  <Button className="w-full" size="lg" onClick={handleJoin}>
+                <div className="space-y-2 mt-8">
+                  <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white" size="lg" onClick={handleJoin}>
                     Join Meeting
                   </Button>
                   <p className="text-xs text-center text-muted-foreground">
