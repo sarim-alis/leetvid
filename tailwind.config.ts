@@ -7,6 +7,34 @@ const config: Config = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  safelist: [
+    // Gradient classes used dynamically in ActionCard
+    "from-primary/10",
+    "via-primary/5",
+    "from-emerald-600/10",
+    "via-emerald-600/5",
+    "from-purple-500/10",
+    "via-purple-500/5",
+    "from-blue-500/10",
+    "via-blue-500/5",
+    "from-orange-500/10",
+    "via-orange-500/5",
+    "to-transparent",
+    // Icon colors used dynamically
+    "bg-primary/10",
+    "text-primary",
+    "bg-emerald-600/10",
+    "text-emerald-600",
+    "bg-purple-500/10",
+    "text-purple-500",
+    "bg-blue-500/10",
+    "text-blue-500",
+    "bg-orange-500/10",
+    "text-orange-500",
+    // bg-clip-text for text gradients
+    "bg-clip-text",
+    "text-transparent",
+  ],
   theme: {
   	extend: {
   		colors: {
