@@ -50,7 +50,7 @@ function MeetingRoom() {
                         <Button variant="outline" size="icon" className="size-10" onClick={() => setShowParticipants(!showParticipants)}>
                           <UsersIcon className="size-4" />
                         </Button>
-                        <EndCallButton />    <h1></h1>
+                        <EndCallButton /> 
                     </div>
                 </div>
               </div>
