@@ -2,7 +2,6 @@ import { CallingState, useCallStateHooks } from "@stream-io/video-react-sdk";
 import { LoaderIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { ResizablePanel, ResizablePanelGroup } from "./ui/resizable";
 
 function MeetingRoom() {
     const router = useRouter();
@@ -15,24 +14,22 @@ function MeetingRoom() {
 
     if (callingState !== CallingState.JOINED) {
         return (
-            <div className="h-96 flex items-center justify-center">
+            <div className="h-screen flex items-center justify-center">
                 <LoaderIcon className="size-8 animate-spin" />
             </div>
         );
     }
 
     return (
-    <ResizablePanelGroup>
-        <ResizablePanel defaultSize={35} minSize={25} maxSize={100} className="relative">
+    <div className="h-[calc(100vh-4rem)] flex">
+        <div className="w-[35%] border-r border-gray-300 flex">
             <h1>Video will go here</h1>
-        </ResizablePanel>
+        </div>
         
-
-
-        <ResizablePanel defaultSize={65} minSize={25}>
+        <div className="w-[65%] flex">
             <h1>Code editor will go here</h1>
-        </ResizablePanel>
-    </ResizablePanelGroup>
+        </div>
+    </div>
     );
 }
 export default MeetingRoom;
