@@ -7,7 +7,7 @@ import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "./ui/resiz
 function MeetingRoom() {
     const router = useRouter();
     const [layout, setLayout] = useState<"grid" |"speaker">('speaker');
-    const { showParticipants, setShowParticipants } = useState(false);
+    const [showParticipants, setShowParticipants] = useState(false);
     const { useCallCallingState } = useCallStateHooks();
 
     const callingState = useCallCallingState();
