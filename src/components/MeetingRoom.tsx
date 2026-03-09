@@ -2,6 +2,7 @@ import { CallingState, useCallStateHooks } from "@stream-io/video-react-sdk";
 import { LoaderIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "./ui/resizable";
 
 function MeetingRoom() {
     const router = useRouter();
@@ -21,14 +22,22 @@ function MeetingRoom() {
     }
 
     return (
-    <div className="h-[calc(100vh-4rem)] flex">
-        <div className="w-[35%] border-r border-gray-300 flex">
-            <h1>Video will go here</h1>
-        </div>
-        
-        <div className="w-[65%] flex">
-            <h1>Code editor will go here</h1>
-        </div>
+    <div className="h-[calc(100vh-4rem)]">
+        <ResizablePanelGroup className="h-full flex flex-row" data-panel-group-direction="horizontal">
+            <ResizablePanel defaultSize={35} minSize={25}>
+                <div className="h-full flex items-start p-4">
+                    <h1>Video will go here</h1>
+                </div>
+            </ResizablePanel>
+            
+            <ResizableHandle withHandle />
+            
+            <ResizablePanel defaultSize={65} minSize={25}>
+                <div className="h-full flex items-start p-4">
+                    <h1>Code editor will go here</h1>
+                </div>
+            </ResizablePanel>
+        </ResizablePanelGroup>
     </div>
     );
 }
