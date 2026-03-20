@@ -26,9 +26,9 @@ function MeetingRoom() {
         {/* Left Sidebar: Video + Problem Description */}
         <div className="w-[60%] flex flex-col border-r">
             {/* Video Panel */}
-            <div className="h-[30%] relative bg-muted/30 border-b">
+            <div className="h-[25%] relative bg-muted/30 border-b">
                 {/* Video Layout */}
-                <div className="h-full flex items-center justify-center p-4">
+                <div className="h-full flex items-center justify-center px-4 pb-2">
                     {layout === "grid" ? <PaginatedGridLayout /> : <SpeakerLayout />}
 
                     {/* Participants List Overlay */}
@@ -40,17 +40,17 @@ function MeetingRoom() {
                 </div>
 
                 {/* Video Controls */}
-                <div className="absolute bottom-4 left-0 right-0 z-40">
-                  <div className="flex flex-col items-center gap-2">
-                    <div className="flex items-center gap-2 flex-wrap justify-center px-4">
+                <div className="absolute bottom-2 left-0 right-0 z-40">
+                  <div className="flex flex-col items-center gap-1">
+                    <div className="flex items-center gap-1 flex-wrap justify-center px-2">
                       <CallControls onLeave={() => router.push("/")} />
-                        <div className="flex items-center gap-2">
-                            <Button variant="outline" size="icon" className="size-10" onClick={() => setLayout(layout === "grid" ? "speaker" : "grid")}>
-                              <LayoutListIcon className="size-4" />
+                        <div className="flex items-center gap-1">
+                            <Button variant="outline" size="icon" className="size-8" onClick={() => setLayout(layout === "grid" ? "speaker" : "grid")}>
+                              <LayoutListIcon className="size-3" />
                             </Button>
 
-                            <Button variant="outline" size="icon" className="size-10" onClick={() => setShowParticipants(!showParticipants)}>
-                              <UsersIcon className="size-4" />
+                            <Button variant="outline" size="icon" className="size-8" onClick={() => setShowParticipants(!showParticipants)}>
+                              <UsersIcon className="size-3" />
                             </Button>
                             <EndCallButton /> 
                         </div>
@@ -60,7 +60,7 @@ function MeetingRoom() {
             </div>
 
             {/* Problem Description Panel */}
-            <div className="h-[70%] overflow-hidden">
+            <div className="h-[75%] overflow-hidden">
                 <CodeEditor showOnlyProblem />
             </div>
         </div>
