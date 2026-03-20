@@ -26,7 +26,7 @@ function MeetingRoom() {
         {/* Left Sidebar: Video + Problem Description */}
         <div className="w-[60%] flex flex-col border-r">
             {/* Video Panel */}
-            <div className="h-[60%] relative bg-muted/30 border-b p-0 -ml-4">
+            <div className="h-[70%] relative bg-muted/30 border-b p-0 -ml-4">
                 {/* Video Layout */}
                 <div className="h-full flex items-start justify-start p-0 -ml-4">
                     {layout === "grid" ? <PaginatedGridLayout /> : <SpeakerLayout />}
@@ -40,9 +40,9 @@ function MeetingRoom() {
                 </div>
 
                 {/* Video Controls */}
-                <div className="absolute bottom-2 left-2 z-40">
-                  <div className="flex flex-col items-start gap-1">
-                    <div className="flex items-center gap-1">
+                <div className="absolute bottom-2 left-0 right-0 z-40">
+                  <div className="flex flex-col items-center gap-1">
+                    <div className="flex items-center gap-1 justify-center">
                       <CallControls onLeave={() => router.push("/")} />
                         <div className="flex items-center gap-1">
                             <Button variant="outline" size="icon" className="size-6" onClick={() => setLayout(layout === "grid" ? "speaker" : "grid")}>
@@ -60,7 +60,7 @@ function MeetingRoom() {
             </div>
 
             {/* Problem Description Panel */}
-            <div className="h-[40%] overflow-hidden mt-4">
+            <div className="h-[30%] overflow-hidden mt-4">
                 <CodeEditor showOnlyProblem />
             </div>
         </div>
