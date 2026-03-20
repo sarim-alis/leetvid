@@ -1,13 +1,17 @@
 import { CODING_QUESTIONS, LANGUAGES } from "@/constants";
 import { useState } from "react";
-import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "./ui/resizable";
 import { ScrollArea, ScrollBar } from "./ui/scroll-area";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { AlertCircleIcon, BookIcon, LightbulbIcon } from "lucide-react";
 import Editor from "@monaco-editor/react";
 
-function CodeEditor() {
+interface CodeEditorProps {
+  showOnlyProblem?: boolean;
+  showOnlyEditor?: boolean;
+}
+
+function CodeEditor({ showOnlyProblem = false, showOnlyEditor = false }: CodeEditorProps = {}) {
   const [selectedQuestion, setSelectedQuestion] = useState(CODING_QUESTIONS[0]);
   const [language, setLanguage] = useState<"javascript" | "python" | "java">(LANGUAGES[0].id);
   const [code, setCode] = useState(selectedQuestion.starterCode[language]);
@@ -23,10 +27,158 @@ function CodeEditor() {
     setCode(selectedQuestion.starterCode[newLanguage]);
   };
 
+  // If only showing problem description
+  if (showOnlyProblem) {
+    return (
+      <ScrollArea className="h-full">
+        <div className="p-4">
+          <div className="space-y-4">
+            {/* PROBLEM DESC. */}
+            <Card>
+              <CardHeader className="flex flex-row items-center gap-2 pb-3">
+                <BookIcon className="h-4 w-4 text-primary/80" />
+                <CardTitle className="text-sm">Problem Description</CardTitle>
+              </CardHeader>
+              <CardContent className="text-xs leading-relaxed">
+                <div className="prose prose-sm dark:prose-invert max-w-none">
+                  <p className="whitespace-pre-line text-xs">{selectedQuestion.description}</p>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* PROBLEM EXAMPLES */}
+            <Card>
+              <CardHeader className="flex flex-row items-center gap-2 pb-3">
+                <LightbulbIcon className="h-4 w-4 text-yellow-500" />
+                <CardTitle className="text-sm">Examples</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  {selectedQuestion.examples.map((example, index) => (
+                    <div key={index} className="space-y-1">
+                      <p className="font-medium text-xs">Example {index + 1}:</p>
+                      <pre className="bg-muted/50 p-2 rounded-lg text-xs font-mono">
+                        <div>Input: {example.input}</div>
+                        <div>Output: {example.output}</div>
+                        {example.explanation && (
+                          <div className="pt-1 text-muted-foreground">
+                            Explanation: {example.explanation}
+                          </div>
+                        )}
+                      </pre>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* CONSTRAINTS */}
+            {selectedQuestion.constraints && (
+              <Card>
+                <CardHeader className="flex flex-row items-center gap-2 pb-3">
+                  <AlertCircleIcon className="h-4 w-4 text-blue-500" />
+                  <CardTitle className="text-sm">Constraints</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ul className="list-disc list-inside space-y-1 text-xs marker:text-muted-foreground">
+                    {selectedQuestion.constraints.map((constraint, index) => (
+                      <li key={index} className="text-muted-foreground">
+                        {constraint}
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            )}
+          </div>
+        </div>
+        <ScrollBar />
+      </ScrollArea>
+    );
+  }
+
+  // If only showing editor
+  if (showOnlyEditor) {
+    return (
+      <div className="h-full flex flex-col">
+        {/* Header with selects */}
+        <div className="flex items-center justify-between gap-3 p-3 border-b bg-muted/30">
+          <h3 className="text-sm font-semibold">{selectedQuestion.title}</h3>
+          <div className="flex items-center gap-2">
+            <Select value={selectedQuestion.id} onValueChange={handleQuestionChange}>
+              <SelectTrigger className="w-[140px] h-8 text-xs">
+                <SelectValue placeholder="Select question" />
+              </SelectTrigger>
+              <SelectContent>
+                {CODING_QUESTIONS.map((q) => (
+                  <SelectItem key={q.id} value={q.id} className="text-xs">
+                    {q.title}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
+            <Select value={language} onValueChange={handleLanguageChange}>
+              <SelectTrigger className="w-[120px] h-8 text-xs">
+                <SelectValue>
+                  <div className="flex items-center gap-2">
+                    <img
+                      src={`/${language}.png`}
+                      alt={language}
+                      className="w-4 h-4 object-contain"
+                    />
+                    {LANGUAGES.find((l) => l.id === language)?.name}
+                  </div>
+                </SelectValue>
+              </SelectTrigger>
+              <SelectContent>
+                {LANGUAGES.map((lang) => (
+                  <SelectItem key={lang.id} value={lang.id} className="text-xs">
+                    <div className="flex items-center gap-2">
+                      <img
+                        src={`/${lang.id}.png`}
+                        alt={lang.name}
+                        className="w-4 h-4 object-contain"
+                      />
+                      {lang.name}
+                    </div>
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+
+        {/* Editor */}
+        <div className="flex-1">
+          <Editor
+            height={"100%"}
+            defaultLanguage={language}
+            language={language}
+            theme="vs-dark"
+            value={code}
+            onChange={(value) => setCode(value || "")}
+            options={{
+              minimap: { enabled: false },
+              fontSize: 14,
+              lineNumbers: "on",
+              scrollBeyondLastLine: false,
+              automaticLayout: true,
+              padding: { top: 16, bottom: 16 },
+              wordWrap: "on",
+              wrappingIndent: "indent",
+            }}
+          />
+        </div>
+      </div>
+    );
+  }
+
+  // Default: Full layout with CSS-based divs
   return (
-    <ResizablePanelGroup className="min-h-[calc-100vh-4rem-1px]">
+    <div className="min-h-[calc(100vh-4rem-1px)] flex">
       {/* QUESTION SECTION */}
-      <ResizablePanel>
+      <div className="w-[40%] border-r">
         <ScrollArea className="h-full">
           <div className="p-6">
             <div className="max-w-4xl mx-auto space-y-6">
@@ -58,7 +210,6 @@ function CodeEditor() {
 
                   <Select value={language} onValueChange={handleLanguageChange}>
                     <SelectTrigger className="w-[150px]">
-                      {/* SELECT VALUE */}
                       <SelectValue>
                         <div className="flex items-center gap-2">
                           <img
@@ -70,7 +221,6 @@ function CodeEditor() {
                         </div>
                       </SelectValue>
                     </SelectTrigger>
-                    {/* SELECT CONTENT */}
                     <SelectContent>
                       {LANGUAGES.map((lang) => (
                         <SelectItem key={lang.id} value={lang.id}>
@@ -156,12 +306,10 @@ function CodeEditor() {
           </div>
           <ScrollBar />
         </ScrollArea>
-      </ResizablePanel>
-
-      <ResizableHandle withHandle />
+      </div>
 
       {/* CODE EDITOR */}
-      <ResizablePanel defaultSize={60} maxSize={100}>
+      <div className="w-[60%]">
         <div className="h-full relative">
           <Editor
             height={"100%"}
@@ -182,8 +330,8 @@ function CodeEditor() {
             }}
           />
         </div>
-      </ResizablePanel>
-    </ResizablePanelGroup>
+      </div>
+    </div>
   );
 }
 export default CodeEditor;

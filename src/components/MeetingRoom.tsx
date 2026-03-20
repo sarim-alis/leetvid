@@ -1,5 +1,5 @@
 import { CallControls, CallingState, CallParticipantsList, PaginatedGridLayout, SpeakerLayout, useCallStateHooks } from "@stream-io/video-react-sdk";
-import { GripVertical, LayoutListIcon, LoaderIcon, UsersIcon } from "lucide-react";
+import { LayoutListIcon, LoaderIcon, UsersIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "./ui/button";
@@ -23,51 +23,51 @@ function MeetingRoom() {
 
     return (
     <div className="h-[calc(100vh-4rem-1px)] flex">
-        {/* Video Panel */}
-        <div className="w-1/2 relative">
-            {/* Video Layout */}
-            <div className="h-full flex items-start p-4 absolute inset-0">
-                {layout === "grid" ? <PaginatedGridLayout /> : <SpeakerLayout />}
+        {/* Left Sidebar: Video + Problem Description */}
+        <div className="w-[60%] flex flex-col border-r">
+            {/* Video Panel */}
+            <div className="h-[30%] relative bg-muted/30 border-b">
+                {/* Video Layout */}
+                <div className="h-full flex items-center justify-center p-4">
+                    {layout === "grid" ? <PaginatedGridLayout /> : <SpeakerLayout />}
 
-                {/* Participants List Overlay */}
-                {showParticipants && (
-                  <div className="absolute right-0 top-0 h-full w-[300px] bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-                    <CallParticipantsList onClose={() => setShowParticipants(false)} />
-                  </div>
-                )}
-            </div>
-
-            {/* Video Controls */}
-            <div className="absolute bottom-4 left-0 right-0">
-              <div className="flex flex-col items-center gap-4">
-                <div className="flex items-center gap-2 flex-wrap justify-center px-4">
-                  <CallControls onLeave={() => router.push("/")} />
-                    <div className="flex items-center gap-2">
-                        <Button variant="outline" size="icon" className="size-10">
-                          <LayoutListIcon className="size-4" />
-                        </Button>
-
-                        <Button variant="outline" size="icon" className="size-10" onClick={() => setShowParticipants(!showParticipants)}>
-                          <UsersIcon className="size-4" />
-                        </Button>
-                        <EndCallButton /> 
-                    </div>
+                    {/* Participants List Overlay */}
+                    {showParticipants && (
+                      <div className="absolute right-0 top-0 h-full w-[300px] bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-50">
+                        <CallParticipantsList onClose={() => setShowParticipants(false)} />
+                      </div>
+                    )}
                 </div>
-              </div>
-            </div>
-        </div>
-        
 
-        <div className="w-px bg-border relative">
-            <div className="absolute top-2 left-1/2 transform -translate-x-1/2 z-10 flex h-8 w-8 items-center justify-center rounded-sm border bg-border">
-                <GripVertical className="h-6 w-6" />
+                {/* Video Controls */}
+                <div className="absolute bottom-4 left-0 right-0 z-40">
+                  <div className="flex flex-col items-center gap-2">
+                    <div className="flex items-center gap-2 flex-wrap justify-center px-4">
+                      <CallControls onLeave={() => router.push("/")} />
+                        <div className="flex items-center gap-2">
+                            <Button variant="outline" size="icon" className="size-10" onClick={() => setLayout(layout === "grid" ? "speaker" : "grid")}>
+                              <LayoutListIcon className="size-4" />
+                            </Button>
+
+                            <Button variant="outline" size="icon" className="size-10" onClick={() => setShowParticipants(!showParticipants)}>
+                              <UsersIcon className="size-4" />
+                            </Button>
+                            <EndCallButton /> 
+                        </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+            {/* Problem Description Panel */}
+            <div className="h-[70%] overflow-hidden">
+                <CodeEditor showOnlyProblem />
             </div>
         </div>
-        
-        <div className="w-1/2">
-            <div className="h-full flex items-start p-4">
-                <h1>Code editor will go here</h1>
-            </div>
+
+        {/* Code Editor Panel */}
+        <div className="w-[40%]">
+            <CodeEditor showOnlyEditor />
         </div>
     </div>
     );
