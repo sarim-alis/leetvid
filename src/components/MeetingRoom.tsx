@@ -67,7 +67,7 @@ function MeetingRoom() {
         {/* Code Editor Panel - 50% */}
         <div className="w-1/2">
             <div className="h-full flex items-start p-4">
-                <h1>Code editor will go here</h1>
+                <h1>Code editor will go heres</h1>
             </div>
         </div>
     </div>
