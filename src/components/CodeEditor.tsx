@@ -24,7 +24,7 @@ function CodeEditor() {
   };
 
   return (
-    <ResizablePanelGroup direction="vertical" className="min-h-[calc-100vh-4rem-1px]">
+    <ResizablePanelGroup className="min-h-[calc-100vh-4rem-1px]">
       {/* QUESTION SECTION */}
       <ResizablePanel>
         <ScrollArea className="h-full">
