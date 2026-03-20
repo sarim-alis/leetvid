@@ -11,6 +11,7 @@ const useGetCallById = (id: string | string[]) => {
     if (!client) return;
 
     const getCall = async () => {
+      setIsCallLoading(true);
       try {
         const { calls } = await client.queryCalls({ filter_conditions: { id } });
 
