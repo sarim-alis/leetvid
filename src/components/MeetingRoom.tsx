@@ -26,7 +26,7 @@ function MeetingRoom() {
         {/* Left Sidebar: Video + Problem Description */}
         <div className="w-[60%] flex flex-col border-r">
             {/* Video Panel */}
-            <div className="h-[20%] relative bg-muted/30 border-b p-0 -ml-4">
+            <div className="h-[60%] relative bg-muted/30 border-b p-0 -ml-4">
                 {/* Video Layout */}
                 <div className="h-full flex items-start justify-start p-0 -ml-4">
                     {layout === "grid" ? <PaginatedGridLayout /> : <SpeakerLayout />}
@@ -60,7 +60,7 @@ function MeetingRoom() {
             </div>
 
             {/* Problem Description Panel */}
-            <div className="h-[75%] overflow-hidden">
+            <div className="h-[40%] overflow-hidden mt-4">
                 <CodeEditor showOnlyProblem />
             </div>
         </div>
