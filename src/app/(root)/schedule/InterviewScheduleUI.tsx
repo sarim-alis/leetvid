@@ -144,7 +144,7 @@ function InterviewScheduleUI() {
 
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
-            <Button size="lg">Schedule Interview</Button>
+            <Button size="lg" className="bg-emerald-600 hover:bg-emerald-700 text-white">Schedule Interview</Button>
           </DialogTrigger>
 
           <DialogContent className="sm:max-w-[500px] h-[calc(100vh-200px)] overflow-auto">
@@ -271,7 +271,7 @@ function InterviewScheduleUI() {
                 <Button variant="outline" onClick={() => setOpen(false)}>
                   Cancel
                 </Button>
-                <Button onClick={scheduleMeeting} disabled={isCreating}>
+                <Button onClick={scheduleMeeting} disabled={isCreating} className="bg-emerald-600 hover:bg-emerald-700 text-white">
                   {isCreating ? (
                     <>
                       <Loader2Icon className="mr-2 size-4 animate-spin" />
