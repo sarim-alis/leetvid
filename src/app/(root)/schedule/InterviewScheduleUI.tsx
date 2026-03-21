@@ -184,7 +184,7 @@ function InterviewScheduleUI() {
                   <SelectTrigger>
                     <SelectValue placeholder="Select candidate" />
                   </SelectTrigger>
-                  <SelectContent className="z-[999] bg-white">
+                  <SelectContent className="z-[999] bg-white text-black dark:bg-black dark:text-white">
                     {candidates.map((candidate) => (
                       <SelectItem key={candidate.clerkId} value={candidate.clerkId}>
                         <UserInfo user={candidate} />
@@ -220,7 +220,7 @@ function InterviewScheduleUI() {
                     <SelectTrigger>
                       <SelectValue placeholder="Add interviewer" />
                     </SelectTrigger>
-                    <SelectContent className="relative z-50 bg-white">
+                    <SelectContent className="relative z-50 bg-white text-black dark:bg-black dark:text-white">
                       {availableInterviewers.map((interviewer) => (
                         <SelectItem key={interviewer.clerkId} value={interviewer.clerkId}>
                           <UserInfo user={interviewer} />
@@ -256,7 +256,7 @@ function InterviewScheduleUI() {
                     <SelectTrigger>
                       <SelectValue placeholder="Select time" />
                     </SelectTrigger>
-                    <SelectContent className="z-[999] bg-white max-h-60">
+                    <SelectContent className="z-[999] max-h-60 bg-white text-black dark:bg-black dark:text-white">
                       {TIME_SLOTS.map((time) => (
                         <SelectItem key={time} value={time}>
                           {time}
