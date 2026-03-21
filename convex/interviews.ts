@@ -38,6 +38,16 @@ export const getInterviewByStreamCallId = query({
     },
 });
 
+export const getInterviewById = query({
+    args: { id: v.id("interviews") },
+    handler: async (ctx, args) => {
+        const identity = await ctx.auth.getUserIdentity();
+        if (!identity) throw new Error("Unauthorized");
+
+        return await ctx.db.get(args.id);
+    },
+});
+
 export const createInterview = mutation({
     args: {
         title: v.string(),
