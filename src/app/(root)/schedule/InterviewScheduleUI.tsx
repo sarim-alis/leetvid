@@ -147,7 +147,7 @@ function InterviewScheduleUI() {
             <Button size="lg" className="bg-emerald-600 hover:bg-emerald-700 text-white">Schedule Interview</Button>
           </DialogTrigger>
 
-          <DialogContent className="sm:max-w-[500px] h-[calc(100vh-200px)] overflow-auto">
+          <DialogContent className="sm:max-w-[500px] max-h-[calc(100vh-100px)] overflow-y-auto">
             <DialogHeader>
               <DialogTitle>Schedule Interview</DialogTitle>
             </DialogHeader>
@@ -183,7 +183,7 @@ function InterviewScheduleUI() {
                   <SelectTrigger>
                     <SelectValue placeholder="Select candidate" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="z-50 bg-white">
                     {candidates.map((candidate) => (
                       <SelectItem key={candidate.clerkId} value={candidate.clerkId}>
                         <UserInfo user={candidate} />
@@ -219,7 +219,7 @@ function InterviewScheduleUI() {
                     <SelectTrigger>
                       <SelectValue placeholder="Add interviewer" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="relative z-50 bg-white">
                       {availableInterviewers.map((interviewer) => (
                         <SelectItem key={interviewer.clerkId} value={interviewer.clerkId}>
                           <UserInfo user={interviewer} />
