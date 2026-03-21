@@ -57,13 +57,13 @@ function MeetingCard({ interview }: { interview: Interview }) {
 
       <CardContent>
         {status === "live" && (
-          <Button className="w-full" onClick={() => joinMeeting(interview.streamCallId)}>
+          <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white" onClick={() => joinMeeting(interview.streamCallId)}>
             Join Meeting
           </Button>
         )}
 
         {status === "upcoming" && (
-          <Button variant="outline" className="w-full" disabled>
+          <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white" disabled>
             Waiting to Start
           </Button>
         )}
