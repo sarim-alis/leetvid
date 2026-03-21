@@ -1,29 +1,20 @@
+import { UserCircleIcon } from "lucide-react";
+import { Doc } from "../../convex/_generated/dataModel";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-interface UserInfoProps {
-  user: {
-    name?: string;
-    image?: string;
-    clerkId: string;
-    email?: string;
-  };
-}
+type User = Doc<"users">;
 
-export default function UserInfo({ user }: UserInfoProps) {
-  const initials = user.name
-    ?.split(" ")
-    .map((n) => n[0])
-    .join("") || user.email?.slice(0, 2) || "U";
-
+function UserInfo({ user }: { user: User }) {
   return (
     <div className="flex items-center gap-2">
-      <Avatar className="size-6">
-        <AvatarImage src={user.image} alt={user.name || user.email || "User"} />
-        <AvatarFallback className="text-xs">{initials}</AvatarFallback>
+      <Avatar className="h-6 w-6">
+        <AvatarImage src={user.image} />
+        <AvatarFallback>
+          <UserCircleIcon className="h-4 w-4" />
+        </AvatarFallback>
       </Avatar>
-      <span className="text-sm font-medium">
-        {user.name || user.email || "Unknown User"}
-      </span>
+      <span>{user.name}</span>
     </div>
   );
 }
+export default UserInfo;
