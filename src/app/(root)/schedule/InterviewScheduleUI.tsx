@@ -26,6 +26,7 @@ import { Loader2Icon, XIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { TIME_SLOTS } from "@/constants";
 import MeetingCard from "@/components/MeetingCard";
+import { startOfDay } from "date-fns";
 
 function InterviewScheduleUI() {
   const client = useStreamVideoClient();
@@ -43,7 +44,7 @@ function InterviewScheduleUI() {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
-    date: new Date(),
+    date: new Date(new Date().toDateString()),
     time: "09:00",
     candidateId: "",
     interviewerIds: user?.id ? [user.id] : [],
@@ -183,7 +184,7 @@ function InterviewScheduleUI() {
                   <SelectTrigger>
                     <SelectValue placeholder="Select candidate" />
                   </SelectTrigger>
-                  <SelectContent className="z-50 bg-white">
+                  <SelectContent className="z-[999] bg-white">
                     {candidates.map((candidate) => (
                       <SelectItem key={candidate.clerkId} value={candidate.clerkId}>
                         <UserInfo user={candidate} />
@@ -239,8 +240,8 @@ function InterviewScheduleUI() {
                     mode="single"
                     selected={formData.date}
                     onSelect={(date) => date && setFormData({ ...formData, date })}
-                    disabled={(date) => date < new Date()}
-                    className="rounded-md border"
+                    disabled={(date) => startOfDay(date) < startOfDay(new Date())}
+                    className="rounded-md border [&_[data-selected]]:bg-emerald-600 [&_[data-selected]]:text-white [&_[data-selected]]:rounded-full"
                   />
                 </div>
 
@@ -255,7 +256,7 @@ function InterviewScheduleUI() {
                     <SelectTrigger>
                       <SelectValue placeholder="Select time" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="z-[999] bg-white max-h-60">
                       {TIME_SLOTS.map((time) => (
                         <SelectItem key={time} value={time}>
                           {time}
